@@ -20,7 +20,7 @@ cd $VERSION
 
 TAG=antriver/php:$VERSION
 
-docker build --no-cache -t $TAG .
+docker build --platform linux/amd64 --no-cache -t $TAG .
 
 # Check the reported PHP version.
 REPORTED_VERSION=$(docker run --rm $TAG php -r 'echo PHP_VERSION;')
