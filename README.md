@@ -1,10 +1,16 @@
 # Docker PHP Images
 
-These are Dockerfiles to build images based on some PHP base images, with additional things added. Mostly intended for personal use for quick projects.
+These are Dockerfiles to build images based on official PHP base images with some additions such as:
+- composer
+- 
+Intended for use with quick project, testing, pipelines, etc.
 
+Each directory contains a different version.
 
-# Building and Publishing
+# Building
 
-    cd 8.1.0-cli
-    docker build -t antriver/php:8.1.0-cli .
-    docker push antriver/php:8.1.0-cli
+    ./build.sh 8.4.4-cli
+
+# Publishing
+
+    ./build.sh 8.4.4-cli --publish
