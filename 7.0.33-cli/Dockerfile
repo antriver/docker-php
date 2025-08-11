@@ -1,18 +1,14 @@
-# This is currently broken.
-
 FROM php:7.0.33-cli
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Install git and zip for some composer packages.
+# Use the Debian archive for stretch since 7.0 is no longer supported.
+RUN echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.list && \
+    echo "deb http://archive.debian.org/debian-security stretch/updates main" >> /etc/apt/sources.list && \
+    apt-get update && apt-get install -y --no-install-recommends --allow-unauthenticated \
     wget \
-    dpkg
-
-# Download and install git and zip. Not using apt because that is no longer working on this old version.
-RUN wget http://archive.debian.org/debian/pool/main/g/git/git_2.11.0-3+deb9u5_amd64.deb \
-    && dpkg -i git_2.11.0-3+deb9u5_amd64.deb \
-    && rm git_2.11.0-3+deb9u5_amd64.deb \
-    && wget http://archive.debian.org/debian/pool/main/z/zip/zip_3.0-11+deb9u1_amd64.deb \
-    && dpkg -i zip_3.0-11+deb9u1_amd64.deb \
-    && rm zip_3.0-11+deb9u1_amd64.deb
+    dpkg \
+    git \
+    zip
 
 # Install Composer
 RUN php -r "readfile('https://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer

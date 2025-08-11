@@ -1,4 +1,5 @@
-FROM php:8.1.0-fpm
+ARG PHP_VERSION
+FROM php:${PHP_VERSION}
 
 RUN apt update
 
