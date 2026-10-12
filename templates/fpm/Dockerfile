@@ -3,8 +3,8 @@ FROM php:${PHP_VERSION}
 
 RUN apt update
 
-# Install PHP extensions for Laravel 8
-RUN docker-php-ext-install mysqli pdo pdo_mysql bcmath && docker-php-ext-enable pdo_mysql bcmath
+# Install PHP extensions for Laravel
+RUN docker-php-ext-install mysqli pdo pdo_mysql bcmath
 RUN pecl install timezonedb && docker-php-ext-enable timezonedb
 
 # No git or zip.

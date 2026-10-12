@@ -39,9 +39,10 @@ if [ -d "$VERSION" ] && [ -f "$VERSION/Dockerfile" ]; then
 else
   echo "🎯 Using generic $TYPE template for $VERSION"
   # Create temporary Dockerfile from template
-  sed "s/\${PHP_VERSION}/$VERSION/g" templates/$TYPE/Dockerfile > Dockerfile.tmp
-  docker build --platform linux/amd64,linux/arm64 --no-cache -f Dockerfile.tmp -t $TAG --build-arg PHP_VERSION=$VERSION .
-  rm Dockerfile.tmp
+  DOCKERFILE_TMP="Dockerfile.$VERSION"
+  sed "s/\${PHP_VERSION}/$VERSION/g" templates/$TYPE/Dockerfile > "$DOCKERFILE_TMP"
+  docker build --platform linux/amd64,linux/arm64 --no-cache -f "$DOCKERFILE_TMP" -t $TAG --build-arg PHP_VERSION=$VERSION .
+  rm "$DOCKERFILE_TMP"
 fi
 
 # ✅ Check the reported PHP version.
